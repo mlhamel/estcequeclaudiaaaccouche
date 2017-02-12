@@ -3,6 +3,7 @@ package main
 import (
   "log"
   "fmt"
+  "net/url"
   "net/http"
   "os"
 	"gopkg.in/redis.v5"
@@ -14,13 +15,20 @@ const yes string = "oui"
 const no string = "non"
 
 func GetRedisClient() (*redis.Client) {
-	url := os.Getenv("REDIS_URL")
-	if url == "" {
-		url = "localhost:6379"
+	var value = os.Getenv("REDIS_URL")
+	var password = ""
+
+	if value == "" {
+		value = "redis://localhost:6379"
 	}
+
+	u, _ := url.Parse(value)
+	password, _ = u.User.Password()
+	value = u.Host
+
 	return redis.NewClient(&redis.Options{
-		Addr:     url,
-		Password: "", // no password set
+		Addr:     value,
+		Password: password, // no password set
 		DB:       0,  // use default DB
 	})
 }
