@@ -11,6 +11,8 @@ import (
 )
 
 const key string = "status"
+const toggleKey string = "uuid"
+
 const yes string = "oui"
 const no string = "non"
 
@@ -33,12 +35,6 @@ func GetRedisClient() (*redis.Client) {
 	})
 }
 
-func getStatus() (string, error) {
-	client := GetRedisClient()
-
-	return client.Get(key).Result()
-}
-
 func determineListenAddress() (string, error) {
   port := os.Getenv("PORT")
   if port == "" {
@@ -48,7 +44,9 @@ func determineListenAddress() (string, error) {
 }
 
 func GetStatus() (string) {
-	status, err := getStatus()
+	client := GetRedisClient()
+	status, err := client.Get(key).Result()
+
 	if err == redis.Nil {
 		return no
 	} else if err != nil {
@@ -100,6 +98,32 @@ func ToggleStatus(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprintf(w, status)
 }
 
+func GenerateToggleUrl() (string) {
+	u1 := uuid.NewV4()
+	return fmt.Sprintf("/%s", u1)
+}
+
+func GetToggleUrl() (string) {
+	client := GetRedisClient()
+	toggleUrl, err := client.Get(toggleKey).Result()
+
+	if err != redis.Nil {
+		if err != nil {
+			panic(err)
+		}
+	}
+
+	if toggleUrl == "" {
+		toggleUrl = GenerateToggleUrl()
+		err = client.Set(toggleKey, toggleUrl, 0).Err()
+
+		if err != nil {
+			panic(err)
+		}
+	}
+	return toggleUrl
+}
+
 func main() {
   addr, err := determineListenAddress()
 
@@ -107,8 +131,7 @@ func main() {
     panic(err)
   }
 
-	u1 := uuid.NewV4()
-	toggleStatusUrl := fmt.Sprintf("/%s", u1)
+	toggleStatusUrl := GetToggleUrl()
 
   http.HandleFunc("/", DisplayStatus)
 	http.HandleFunc(toggleStatusUrl, ToggleStatus)
