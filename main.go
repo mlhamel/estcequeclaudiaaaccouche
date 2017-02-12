@@ -14,7 +14,7 @@ const yes string = "oui"
 const no string = "non"
 
 func GetRedisClient() (*redis.Client) {
-	url := os.Getenv("REDISTOGO_URL")
+	url := os.Getenv("REDIS_URL")
 	if url == "" {
 		url = "localhost:6379"
 	}
