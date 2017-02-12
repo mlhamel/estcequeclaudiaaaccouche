@@ -1,0 +1,21 @@
+name: accouchement
+up:
+  - homebrew:
+    - openssl
+  - go: 1.7.5
+  - railgun
+commands:
+  build: go build github.com/mlhamel/accouchement
+  server: REDISTOGO_URL=192.168.64.42:6379 PORT=40042 ./accouchement
+railgun:
+  image: dev:railgun-common-services-0.2.x
+  services:
+    nginx: 80
+    redis: 6379
+  ip_address: 192.168.64.42
+  memory: 2G
+  cores: 2
+  disk: 2G
+
+packages:
+  - git@github.com:Shopify/dev-shopify.git
