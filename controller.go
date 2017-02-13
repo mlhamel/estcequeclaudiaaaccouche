@@ -1,18 +1,28 @@
 package main
 
 import (
-  "fmt"
+	"encoding/json"
   "net/http"
 )
 
-func DisplayStatus(w http.ResponseWriter, r *http.Request) {
-	status := GetStatus()
+func BuildResponse(status string) map[string] string {
+	return map[string] string {"Status": status}
+}
 
-	fmt.Fprintf(w, status)
+func DisplayStatus(w http.ResponseWriter, r *http.Request) {
+	params := BuildResponse(GetStatus())
+	renderTemplate(w, "templates/status.html", params)
+}
+
+func ApiStatus(w http.ResponseWriter, r *http.Request) {
+	params := BuildResponse(GetStatus())
+
+	json.NewEncoder(w).Encode(params)
 }
 
 func ToggleStatus(w http.ResponseWriter, r *http.Request) {
 	status := GetStatus()
+	params := BuildResponse(status)
 
 	if status == no {
 		status = EnableStatus()
@@ -20,5 +30,5 @@ func ToggleStatus(w http.ResponseWriter, r *http.Request) {
 		status = DisableStatus()
 	}
 
-	fmt.Fprintf(w, status)
+	json.NewEncoder(w).Encode(params)
 }

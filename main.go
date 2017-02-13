@@ -15,6 +15,7 @@ func main() {
 	toggleStatusUrl := GetToggleUrl()
 
   http.HandleFunc("/", DisplayStatus)
+  http.HandleFunc("/api", ApiStatus)
 	http.HandleFunc(toggleStatusUrl, ToggleStatus)
 
   log.Printf("Listening on %s...\n", addr)
