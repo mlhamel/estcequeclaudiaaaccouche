@@ -1,4 +1,4 @@
-package main
+package accouchement
 
 import (
 	"gopkg.in/redis.v5"
