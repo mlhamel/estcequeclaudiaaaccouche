@@ -1,1 +1,1 @@
-web: accouchement
+web: bin/accouchement
