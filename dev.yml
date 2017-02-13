@@ -5,7 +5,7 @@ up:
   - go: 1.7.5
   - railgun
 commands:
-  build: go build -o accouchement cmd/accouchement/main.go
+  build: make build
   server: REDIS_URL=redis://@192.168.64.42:6379 PORT=40042 ./accouchement
 railgun:
   image: dev:railgun-common-services-0.2.x
