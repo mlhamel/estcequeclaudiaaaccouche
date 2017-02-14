@@ -4,4 +4,5 @@
 default: build
 
 build:
-		go build -o bin/accouchement cmd/accouchement/main.go
+		go install github.com/mlhamel/accouchement/web
+    go build -o bin/accouchement cmd/accouchement/main.go
