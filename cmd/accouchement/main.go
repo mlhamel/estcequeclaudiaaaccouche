@@ -4,21 +4,21 @@ import (
   "log"
   "net/http"
 
-	"github.com/mlhamel/accouchement"
+	"github.com/mlhamel/accouchement/web"
 )
 
 func main() {
-  addr, err := accouchement.GetListenAddress()
+  addr, err := web.GetListenAddress()
 
   if err != nil {
     panic(err)
   }
 
-	toggleStatusUrl := accouchement.GetToggleUrl()
+	toggleStatusUrl := web.GetToggleUrl()
 
-  http.HandleFunc("/", accouchement.DisplayStatus)
-  http.HandleFunc("/api", accouchement.ApiStatus)
-	http.HandleFunc(toggleStatusUrl, accouchement.ToggleStatus)
+  http.HandleFunc("/", web.DisplayStatus)
+  http.HandleFunc("/api", web.ApiStatus)
+	http.HandleFunc(toggleStatusUrl, web.ToggleStatus)
 
   log.Printf("Listening on %s...\n", addr)
 	log.Printf("Setter sets to `%s`", toggleStatusUrl)
