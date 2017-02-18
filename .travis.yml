@@ -1,5 +1,7 @@
 language: go
 
+go_import_path: github.com/mlhamel/accouchement
+
 go:
   - 1.7.x
   - master
