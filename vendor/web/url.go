@@ -4,6 +4,7 @@ import (
   "fmt"
 	"github.com/satori/go.uuid"
 	"gopkg.in/redis.v5"
+	"redisclient"
 )
 
 func GenerateToggleUrl() (string) {
@@ -12,7 +13,7 @@ func GenerateToggleUrl() (string) {
 }
 
 func SetToggleUrl(url string) () {
-	client := GetRedisClient()
+	client := redisclient.NewClient()
 	err := client.Set(toggleKey, url, 0).Err()
 
 	if err != nil {
@@ -21,7 +22,7 @@ func SetToggleUrl(url string) () {
 }
 
 func GetToggleUrl() (string) {
-	client := GetRedisClient()
+	client := redisclient.NewClient()
 	url, err := client.Get(toggleKey).Result()
 
 	if err != redis.Nil && err != nil {

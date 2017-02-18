@@ -1,4 +1,4 @@
-package web
+package redisclient
 
 import (
   "net/url"
@@ -6,7 +6,7 @@ import (
   "os"
 )
 
-func GetRedisClient() (*redis.Client) {
+func NewClient() (*redis.Client) {
 	var value = os.Getenv("REDIS_URL")
 	var password = ""
 
