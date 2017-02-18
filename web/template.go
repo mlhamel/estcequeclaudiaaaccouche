@@ -2,7 +2,7 @@ package web
 
 import (
 	"html/template"
-  "net/http"
+	"net/http"
 )
 
 func renderTemplate(w http.ResponseWriter, tmpl string, p interface{}) {

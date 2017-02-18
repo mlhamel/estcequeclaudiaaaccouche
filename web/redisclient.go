@@ -1,12 +1,12 @@
-package redisclient
+package web
 
 import (
-  "net/url"
 	"gopkg.in/redis.v5"
-  "os"
+	"net/url"
+	"os"
 )
 
-func NewClient() (*redis.Client) {
+func NewClient() *redis.Client {
 	var value = os.Getenv("REDIS_URL")
 	var password = ""
 
@@ -21,6 +21,6 @@ func NewClient() (*redis.Client) {
 	return redis.NewClient(&redis.Options{
 		Addr:     value,
 		Password: password, // no password set
-		DB:       0,  // use default DB
+		DB:       0,        // use default DB
 	})
 }

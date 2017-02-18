@@ -1,22 +1,17 @@
-package status
+package web
 
 import (
 	"gopkg.in/redis.v5"
-	"redisclient"
 )
 
 type Status struct {
 	currentValue string
-	client *redis.Client
+	client       *redis.Client
 }
 
-const key string = "status"
-const yes string = "oui"
-const no string = "non"
-
-func NewStatus() (*Status) {
+func NewStatus() *Status {
 	s := Status{
-		client: redisclient.NewClient(),
+		client:       NewClient(),
 		currentValue: no,
 	}
 
@@ -55,8 +50,8 @@ func (s *Status) Disable() {
 	s.currentValue = no
 }
 
-func (s *Status) Serialize() map[string] string {
-	return map[string] string {"Status": s.currentValue}
+func (s *Status) Serialize() map[string]string {
+	return map[string]string{"Status": s.currentValue}
 }
 
 func (s *Status) Value() string {

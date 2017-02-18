@@ -12,9 +12,9 @@ const yes string = "oui"
 const no string = "non"
 
 func GetListenAddress() (string, error) {
-  port := os.Getenv("PORT")
-  if port == "" {
-    return "", fmt.Errorf("$PORT not set")
-  }
-  return ":" + port, nil
+	port := os.Getenv("PORT")
+	if port == "" {
+		return "", fmt.Errorf("$PORT not set")
+	}
+	return ":" + port, nil
 }
