@@ -33,7 +33,3 @@ func TestUniqGenerateToggleUrl(t *testing.T) {
 		t.Error("%s and %s are identical", first, second)
 	}
 }
-
-func TestGetToggleUrl(t *testing.T) {
-
-}

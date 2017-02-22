@@ -1,14 +1,20 @@
 package main
 
 import (
+	"github.com/mlhamel/accouchement/store"
 	"github.com/mlhamel/accouchement/web"
 	"log"
 	"net/http"
+	"os"
 )
 
 func main() {
-	s := web.NewStatus()
-	s.Refresh()
+	url := os.Getenv("REDIS_URL")
+
+	dataStore, _ := store.NewStore(store.REDIS, url, "")
+	statusManager := web.NewStatus(dataStore)
+
+	statusManager.Refresh()
 
 	addr, err := web.GetListenAddress()
 
@@ -18,9 +24,9 @@ func main() {
 
 	toggleStatusUrl := web.GetToggleUrl()
 
-	http.HandleFunc("/", makeHandler(web.DisplayStatus, s))
-	http.HandleFunc("/api", makeHandler(web.ApiStatus, s))
-	http.HandleFunc(toggleStatusUrl, makeHandler(web.ToggleStatus, s))
+	http.HandleFunc("/", makeHandler(web.DisplayStatus, statusManager))
+	http.HandleFunc("/api", makeHandler(web.ApiStatus, statusManager))
+	http.HandleFunc(toggleStatusUrl, makeHandler(web.ToggleStatus, statusManager))
 
 	log.Printf("Listening on %s...\n", addr)
 	log.Printf("Setter sets to `%s`", toggleStatusUrl)

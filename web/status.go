@@ -1,37 +1,41 @@
 package web
 
 import (
-	"gopkg.in/redis.v5"
+	"github.com/mlhamel/accouchement/store"
 )
 
 type Status struct {
 	currentValue string
-	client       *redis.Client
+	dataStore    store.Store
 }
 
-func NewStatus() *Status {
+func NewStatus(dataStore store.Store) *Status {
 	s := Status{
-		client:       NewClient(),
+		dataStore:    dataStore,
 		currentValue: no,
 	}
 
 	return &s
 }
 
-func (s *Status) Refresh() {
-	v, err := s.client.Get(key).Result()
+func (s *Status) getKey(key string) (string, error) {
+	return s.dataStore.Get(key)
+}
 
-	if err == redis.Nil {
-		s.currentValue = no
-	} else if err != nil {
+func (s *Status) Refresh() {
+	v, err := s.getKey(key)
+
+	if err != nil {
 		panic(err)
+	} else if v == "" {
+		s.currentValue = no
 	} else {
 		s.currentValue = v
 	}
 }
 
 func (s *Status) Enable() {
-	err := s.client.Set(key, yes, 0).Err()
+	err := s.dataStore.Set(key, yes)
 
 	if err != nil {
 		panic(err)
@@ -41,7 +45,7 @@ func (s *Status) Enable() {
 }
 
 func (s *Status) Disable() {
-	err := s.client.Set(key, no, 0).Err()
+	err := s.dataStore.Set(key, no)
 
 	if err != nil {
 		panic(err)

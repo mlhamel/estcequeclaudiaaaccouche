@@ -4,9 +4,15 @@ import (
 	"gopkg.in/redis.v5"
 	"net/url"
 	"os"
+	"time"
 )
 
-func NewClient() *redis.Client {
+type RedisClient interface {
+	Get(string) *redis.StringCmd
+	Set(string, interface{}, time.Duration) *redis.StatusCmd
+}
+
+func NewClient() RedisClient {
 	var value = os.Getenv("REDIS_URL")
 	var password = ""
 
