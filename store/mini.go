@@ -1,27 +1,39 @@
 package store
 
 import (
-	"miniredis"
+	"github.com/alicebob/miniredis"
 )
 
 type Mini struct {
-	client *Miniredis
+	client *miniredis.Miniredis
 }
 
-func NewMini(redisurl string, password string) *Redis {
-	s, _ := miniredis.Run()
+func NewMini() *Mini {
+	client := miniredis.NewMiniRedis()
 
-	return &s
+	err := client.Start()
+
+	if err != nil {
+		panic(err)
+	}
+
+	return &Mini{client: client}
 }
 
-func (s *Redis) Get(key string) (string, error) {
+func (s *Mini) Get(key string) (string, error) {
 	v, err := s.client.Get(key)
 
-	return v, err
+	if err == miniredis.ErrKeyNotFound {
+		return "", nil
+	} else if err != nil {
+		return "", err
+	} else {
+		return v, nil
+	}
 }
 
-func (s *Redis) Set(key string, value interface{}) error {
-	err := s.client.Set(key, value)
+func (s *Mini) Set(key string, value interface{}) error {
+	err := s.client.Set(key, value.(string))
 
 	return err
 }

@@ -18,6 +18,8 @@ func NewStore(t int, url string, password string) (Store, error) {
 	switch t {
 	case REDIS:
 		return NewRedis(url, password), nil
+	case MINI:
+		return NewMini(), nil
 	default:
 		return nil, errors.New("Invalid Store Type")
 	}

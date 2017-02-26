@@ -28,9 +28,7 @@ func NewRedis(redisurl string, password string) *Redis {
 		DB:       0,        // use default DB
 	})
 
-	retour := Redis{client: client}
-
-	return &retour
+	return &Redis{client: client}
 }
 
 func (s *Redis) Get(key string) (string, error) {

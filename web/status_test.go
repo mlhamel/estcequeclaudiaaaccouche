@@ -1,13 +1,17 @@
 package web
 
 import (
+	"fmt"
+	"github.com/mlhamel/accouchement/store"
 	"testing"
 )
 
 func TestNewStatus(t *testing.T) {
 	t.Log("Creating new status")
 
-	dataStore, _ := store.NewStore(store.MINI, url, "")
+	dataStore, err := store.NewStore(store.MINI, "", "")
+
+	t.Log("Store created")
 
 	if err != nil {
 		panic(err)

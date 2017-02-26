@@ -2,28 +2,27 @@ package web
 
 import (
 	"github.com/mlhamel/accouchement/store"
+	"sync"
 )
 
 type Status struct {
 	currentValue string
 	dataStore    store.Store
+	mutex        *sync.Mutex
 }
 
 func NewStatus(dataStore store.Store) *Status {
 	s := Status{
 		dataStore:    dataStore,
 		currentValue: no,
+		mutex:        &sync.Mutex{},
 	}
 
 	return &s
 }
 
-func (s *Status) getKey(key string) (string, error) {
-	return s.dataStore.Get(key)
-}
-
 func (s *Status) Refresh() {
-	v, err := s.getKey(key)
+	v, err := s.get(key)
 
 	if err != nil {
 		panic(err)
@@ -35,7 +34,7 @@ func (s *Status) Refresh() {
 }
 
 func (s *Status) Enable() {
-	err := s.dataStore.Set(key, yes)
+	err := s.set(key, yes)
 
 	if err != nil {
 		panic(err)
@@ -45,7 +44,7 @@ func (s *Status) Enable() {
 }
 
 func (s *Status) Disable() {
-	err := s.dataStore.Set(key, no)
+	err := s.set(key, yes)
 
 	if err != nil {
 		panic(err)
@@ -60,4 +59,19 @@ func (s *Status) Serialize() map[string]string {
 
 func (s *Status) Value() string {
 	return s.currentValue
+}
+
+func (s *Status) get(key string) (string, error) {
+	s.mutex.Lock()
+	value, err := s.dataStore.Get(key)
+	s.mutex.Unlock()
+
+	return value, err
+}
+
+func (s *Status) set(key string, value string) error {
+	s.mutex.Lock()
+	err := s.dataStore.Set(key, value)
+	s.mutex.Unlock()
+	return err
 }
