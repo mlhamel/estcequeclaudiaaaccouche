@@ -4,6 +4,23 @@
 	"GodepVersion": "v79",
 	"Deps": [
 		{
+			"ImportPath": "github.com/alicebob/miniredis",
+			"Rev": "10ddf01f45bee3c40d1af5dbaad9aa71e6f20835"
+		},
+		{
+			"ImportPath": "github.com/bsm/redeo",
+			"Rev": "1ce09fc76693fb3c1ca9b529c66f38920beb6fb8"
+		},
+		{
+			"ImportPath": "github.com/bsm/redeo/info",
+			"Rev": "1ce09fc76693fb3c1ca9b529c66f38920beb6fb8"
+		},
+		{
+			"ImportPath": "github.com/gorilla/mux",
+			"Comment": "v1.3.0-3-g999ef73",
+			"Rev": "999ef73f5d50979cf6d12afed1726325b63f9570"
+		},
+		{
 			"ImportPath": "github.com/satori/go.uuid",
 			"Comment": "v1.1.0-6-gb061729",
 			"Rev": "b061729afc07e77a8aa4fad0a2fd840958f1942a"
