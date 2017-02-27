@@ -1,9 +1,13 @@
-package web
+package status
 
 import (
 	"github.com/mlhamel/accouchement/store"
 	"sync"
 )
+
+const key string = "status"
+const Yes string = "oui"
+const No string = "non"
 
 type Status struct {
 	currentValue string
@@ -14,7 +18,7 @@ type Status struct {
 func NewStatus(dataStore store.Store) *Status {
 	s := Status{
 		dataStore:    dataStore,
-		currentValue: no,
+		currentValue: No,
 		mutex:        &sync.Mutex{},
 	}
 
@@ -27,30 +31,30 @@ func (s *Status) Refresh() {
 	if err != nil {
 		panic(err)
 	} else if v == "" {
-		s.currentValue = no
+		s.currentValue = No
 	} else {
 		s.currentValue = v
 	}
 }
 
 func (s *Status) Enable() {
-	err := s.set(key, yes)
+	err := s.set(key, Yes)
 
 	if err != nil {
 		panic(err)
 	}
 
-	s.currentValue = yes
+	s.currentValue = Yes
 }
 
 func (s *Status) Disable() {
-	err := s.set(key, yes)
+	err := s.set(key, Yes)
 
 	if err != nil {
 		panic(err)
 	}
 
-	s.currentValue = no
+	s.currentValue = No
 }
 
 func (s *Status) Serialize() map[string]string {

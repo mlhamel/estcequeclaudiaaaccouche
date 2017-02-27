@@ -5,11 +5,7 @@ import (
 	"os"
 )
 
-const key string = "status"
 const toggleKey string = "uuid"
-
-const yes string = "oui"
-const no string = "non"
 
 func GetListenAddress() (string, error) {
 	port := os.Getenv("PORT")

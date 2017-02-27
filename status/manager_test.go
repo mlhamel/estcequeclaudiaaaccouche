@@ -1,7 +1,6 @@
-package web
+package status
 
 import (
-	"fmt"
 	"github.com/mlhamel/accouchement/store"
 	"testing"
 )
@@ -20,7 +19,7 @@ func TestNewStatus(t *testing.T) {
 	s1 := NewStatus(dataStore)
 	s1.Refresh()
 
-	if s1.Value() != no {
+	if s1.Value() != No {
 		t.Error("Initial value should always be no")
 	}
 }
