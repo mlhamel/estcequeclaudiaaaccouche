@@ -15,10 +15,10 @@ type Status struct {
 	mutex        *sync.Mutex
 }
 
-func NewStatus(dataStore store.Store) *Status {
+func NewStatus(dataStore store.Store, value string) *Status {
 	s := Status{
 		dataStore:    dataStore,
-		currentValue: No,
+		currentValue: value,
 		mutex:        &sync.Mutex{},
 	}
 

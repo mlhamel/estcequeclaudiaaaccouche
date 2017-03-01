@@ -7,6 +7,8 @@ import (
 )
 
 func DisplayStatus(w http.ResponseWriter, r *http.Request, s *status.Status) {
+	s.Refresh()
+
 	renderTemplate(w, "templates/status.html", s.Serialize())
 }
 

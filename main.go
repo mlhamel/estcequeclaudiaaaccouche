@@ -8,12 +8,11 @@ import (
 )
 
 func main() {
-	usage := `Est-ce que Claudia a accouchée?.
+	usage := `Est-ce que Claudia a accouché?.
 
 Usage:
   accouchement disable [--redis=<url>]
   accouchement enable [--redis=<url>]
-  accouchement refresh [--redis=<url>]
   accouchement toggle [--redis=<url>]
   accouchement serve [--port=<port>] [--redis=<url>]
   accouchement status [--redis=<url>]
@@ -32,7 +31,9 @@ Options:
 	port := arguments["--port"].(string)
 
 	dataStore, _ := store.NewStore(store.REDIS, redis_url, "")
-	statusManager := status.NewStatus(dataStore)
+	statusManager := status.NewStatus(dataStore, status.No)
+
+	statusManager.Refresh()
 
 	switch {
 	case arguments["disable"]:
@@ -40,9 +41,6 @@ Options:
 		fmt.Println(statusManager.Value())
 	case arguments["enable"]:
 		statusManager.Enable()
-		fmt.Println(statusManager.Value())
-	case arguments["refresh"]:
-		statusManager.Refresh()
 		fmt.Println(statusManager.Value())
 	case arguments["toggle"]:
 		statusManager.Toggle()
