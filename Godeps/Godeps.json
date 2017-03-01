@@ -16,14 +16,14 @@
 			"Rev": "1ce09fc76693fb3c1ca9b529c66f38920beb6fb8"
 		},
 		{
+			"ImportPath": "github.com/docopt/docopt-go",
+			"Comment": "0.6.2",
+			"Rev": "784ddc588536785e7299f7272f39101f7faccc3f"
+		},
+		{
 			"ImportPath": "github.com/gorilla/mux",
 			"Comment": "v1.3.0-3-g999ef73",
 			"Rev": "999ef73f5d50979cf6d12afed1726325b63f9570"
-		},
-		{
-			"ImportPath": "github.com/satori/go.uuid",
-			"Comment": "v1.1.0-6-gb061729",
-			"Rev": "b061729afc07e77a8aa4fad0a2fd840958f1942a"
 		},
 		{
 			"ImportPath": "gopkg.in/redis.v5",
