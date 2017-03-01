@@ -1,1 +1,1 @@
-web: bin/accouchement serve --port=$PORT --redis_url=$REDIS_URL
+web: bin/accouchement serve --port=$PORT --redis=$REDIS_URL
