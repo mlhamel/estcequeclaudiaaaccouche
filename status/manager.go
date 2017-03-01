@@ -37,6 +37,20 @@ func (s *Status) Refresh() {
 	}
 }
 
+func (s *Status) Toggle() {
+	v, err := s.get(key)
+
+	if err != nil {
+		panic(err)
+	} else if v == "" {
+		s.Enable()
+	} else if v == No {
+		s.Enable()
+	} else if v == Yes {
+		s.Disable()
+	}
+}
+
 func (s *Status) Enable() {
 	err := s.set(key, Yes)
 
@@ -48,7 +62,7 @@ func (s *Status) Enable() {
 }
 
 func (s *Status) Disable() {
-	err := s.set(key, Yes)
+	err := s.set(key, No)
 
 	if err != nil {
 		panic(err)

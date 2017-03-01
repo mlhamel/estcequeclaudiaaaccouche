@@ -11,7 +11,7 @@ type Redis struct {
 
 func NewRedis(redisurl string, password string) *Redis {
 	if redisurl == "" {
-		redisurl = "redis://localhost:6379"
+		redisurl = "redis://@localhost:6379"
 	}
 
 	u, _ := url.Parse(redisurl)

@@ -6,7 +6,7 @@ up:
   - railgun
 commands:
   build: make build
-  server: REDIS_URL=redis://@192.168.64.42:6379 PORT=3000 bin/accouchement
+  server: bin/accouchement serve --redis=redis://@192.168.64.42:6379 --port=4242
 railgun:
   image: dev:railgun-common-services-0.2.x
   services:
