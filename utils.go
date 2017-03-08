@@ -1,9 +1,13 @@
-package web
+package main
 
 import (
 	"html/template"
 	"net/http"
 )
+
+func GetListenAddress(port string) (string, error) {
+	return ":" + port, nil
+}
 
 func renderTemplate(w http.ResponseWriter, tmpl string, p interface{}) {
 	t, err := template.ParseFiles(tmpl)

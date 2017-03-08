@@ -1,31 +1,30 @@
 package main
 
 import (
-	"github.com/gorilla/mux"
-	"github.com/mlhamel/accouchement/status"
-	"github.com/mlhamel/accouchement/twilio"
-	"github.com/mlhamel/accouchement/web"
 	"log"
 	"net/http"
+
+	"github.com/gorilla/mux"
+	"github.com/mlhamel/accouchement/status"
 )
 
 func Serve(s *status.Status, port string) {
 	router := mux.NewRouter()
 
-	router.HandleFunc("/", makeHandler(web.DisplayStatus, s))
-	router.HandleFunc("/api", makeHandler(web.ApiStatus, s))
+	router.HandleFunc("/", makeHandler(RenderStatus, s))
+	router.HandleFunc("/api", makeHandler(ApiStatus, s))
 
 	router.
-		HandleFunc("/twiml", makeHandler(twilio.DisplayStatus, s)).
+		HandleFunc("/twiml", makeHandler(RenderStatusWithTwilio, s)).
 		Methods("GET")
 
 	router.
-		HandleFunc("/twiml", makeHandler(twilio.ToggleStatus, s)).
+		HandleFunc("/twiml", makeHandler(ToggleStatusWithTwilio, s)).
 		Methods("Post")
 
 	http.Handle("/", router)
 
-	addr, err := web.GetListenAddress(port)
+	addr, err := GetListenAddress(port)
 
 	if err != nil {
 		panic(err)
