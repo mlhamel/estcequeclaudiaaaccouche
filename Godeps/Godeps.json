@@ -26,6 +26,10 @@
 			"Rev": "999ef73f5d50979cf6d12afed1726325b63f9570"
 		},
 		{
+			"ImportPath": "github.com/gorilla/schema",
+			"Rev": "64644a2fced21dbfa12f7ca184bdcedeb2513dd4"
+		},
+		{
 			"ImportPath": "gopkg.in/redis.v5",
 			"Comment": "v5.2.4",
 			"Rev": "2fe9c5cc0a8da9faeba3a45511a4ece8f7e37dc2"
