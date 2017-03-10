@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+
 	"github.com/docopt/docopt-go"
 	"github.com/mlhamel/accouchement/status"
 	"github.com/mlhamel/accouchement/store"
@@ -16,12 +17,13 @@ Usage:
   accouchement toggle [--redis=<url>]
   accouchement serve [--port=<port>] [--redis=<url>]
   accouchement status [--redis=<url>]
+	accouchement [--port=<port>] [--redis=<url>]
   accouchement -h | --help
   accouchement --version
 
 Options:
   --redis=<url>      Change Redis configuration to [default: redis://@192.168.64.42:6379].
-  --port=<port>      Port to serve [default: 3000].
+  --port=<port>      Port to serve [default: 4242].
   -h --help          Show this screen.
   --version          Show version.`
 
@@ -49,5 +51,7 @@ Options:
 		Serve(statusManager, port)
 	case arguments["status"]:
 		fmt.Println(statusManager.Value())
+	default:
+		Serve(statusManager, port)
 	}
 }
