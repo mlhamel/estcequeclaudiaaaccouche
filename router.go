@@ -10,15 +10,15 @@ import (
 func Serve(s *StatusManager, port string) {
 	router := mux.NewRouter()
 
-	router.HandleFunc("/", makeHandler(RenderStatus, s))
-	router.HandleFunc("/api", makeHandler(ApiStatus, s))
+	router.HandleFunc("/", NewHandler(RenderStatus, s))
+	router.HandleFunc("/api", NewHandler(APIStatus, s))
 
 	router.
-		HandleFunc("/twiml", makeHandler(RenderStatusWithTwilio, s)).
+		HandleFunc("/twiml", NewHandler(RenderStatusWithTwilio, s)).
 		Methods("GET")
 
 	router.
-		HandleFunc("/twiml", makeHandler(ToggleStatusWithTwilio, s)).
+		HandleFunc("/twiml", NewHandler(ToggleStatusWithTwilio, s)).
 		Methods("Post")
 
 	http.Handle("/", router)
@@ -36,7 +36,7 @@ func Serve(s *StatusManager, port string) {
 	}
 }
 
-func makeHandler(fn func(http.ResponseWriter, *http.Request, *StatusManager), s *StatusManager) http.HandlerFunc {
+func NewHandler(fn func(http.ResponseWriter, *http.Request, *StatusManager), s *StatusManager) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		log.Printf("%s %s %s", r.RemoteAddr, r.Method, r.URL)
 		fn(w, r, s)
