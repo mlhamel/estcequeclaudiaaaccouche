@@ -4,7 +4,6 @@ import (
 	"fmt"
 
 	"github.com/docopt/docopt-go"
-	"github.com/mlhamel/accouchement/status"
 	"github.com/mlhamel/accouchement/store"
 )
 
@@ -29,11 +28,11 @@ Options:
 
 	arguments, _ := docopt.Parse(usage, nil, true, "Accouchement", false)
 
-	redis_url := arguments["--redis"].(string)
+	redisURL := arguments["--redis"].(string)
 	port := arguments["--port"].(string)
 
-	dataStore, _ := store.NewStore(store.REDIS, redis_url, "")
-	statusManager := status.NewStatus(dataStore, status.No)
+	dataStore, _ := store.NewStore(store.REDIS, redisURL, "")
+	statusManager := NewStatusManager(dataStore, No)
 
 	statusManager.Refresh()
 

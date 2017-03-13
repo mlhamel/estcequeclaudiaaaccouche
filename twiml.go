@@ -2,13 +2,11 @@ package main
 
 import (
 	"encoding/xml"
-
-	"github.com/mlhamel/accouchement/status"
 )
 
 // TwiML is a Twilio status message handler
 type TwiML struct {
-	manager *status.Status
+	manager *StatusManager
 }
 
 // XML is the data structure for the TwiML manager
@@ -25,7 +23,7 @@ type Message struct {
 }
 
 // NewTwiML is creating a new TwiML
-func NewTwiML(s *status.Status) *TwiML {
+func NewTwiML(s *StatusManager) *TwiML {
 	return &TwiML{manager: s}
 }
 

@@ -1,22 +1,23 @@
-package status
+package main
 
 import (
-	"github.com/mlhamel/accouchement/store"
 	"sync"
+
+	"github.com/mlhamel/accouchement/store"
 )
 
 const key string = "status"
 const Yes string = "oui"
 const No string = "non"
 
-type Status struct {
+type StatusManager struct {
 	currentValue string
 	dataStore    store.Store
 	mutex        *sync.Mutex
 }
 
-func NewStatus(dataStore store.Store, value string) *Status {
-	s := Status{
+func NewStatusManager(dataStore store.Store, value string) *StatusManager {
+	s := StatusManager{
 		dataStore:    dataStore,
 		currentValue: value,
 		mutex:        &sync.Mutex{},
@@ -25,7 +26,7 @@ func NewStatus(dataStore store.Store, value string) *Status {
 	return &s
 }
 
-func (s *Status) Refresh() {
+func (s *StatusManager) Refresh() {
 	v, err := s.get(key)
 
 	if err != nil {
@@ -37,7 +38,7 @@ func (s *Status) Refresh() {
 	}
 }
 
-func (s *Status) Toggle() {
+func (s *StatusManager) Toggle() {
 	v, err := s.get(key)
 
 	if err != nil {
@@ -51,7 +52,7 @@ func (s *Status) Toggle() {
 	}
 }
 
-func (s *Status) Enable() {
+func (s *StatusManager) Enable() {
 	err := s.set(key, Yes)
 
 	if err != nil {
@@ -61,7 +62,7 @@ func (s *Status) Enable() {
 	s.currentValue = Yes
 }
 
-func (s *Status) Disable() {
+func (s *StatusManager) Disable() {
 	err := s.set(key, No)
 
 	if err != nil {
@@ -71,15 +72,15 @@ func (s *Status) Disable() {
 	s.currentValue = No
 }
 
-func (s *Status) Serialize() map[string]string {
+func (s *StatusManager) Serialize() map[string]string {
 	return map[string]string{"Status": s.currentValue}
 }
 
-func (s *Status) Value() string {
+func (s *StatusManager) Value() string {
 	return s.currentValue
 }
 
-func (s *Status) get(key string) (string, error) {
+func (s *StatusManager) get(key string) (string, error) {
 	s.mutex.Lock()
 	value, err := s.dataStore.Get(key)
 	s.mutex.Unlock()
@@ -87,7 +88,7 @@ func (s *Status) get(key string) (string, error) {
 	return value, err
 }
 
-func (s *Status) set(key string, value string) error {
+func (s *StatusManager) set(key string, value string) error {
 	s.mutex.Lock()
 	err := s.dataStore.Set(key, value)
 	s.mutex.Unlock()

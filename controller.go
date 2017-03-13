@@ -3,23 +3,21 @@ package main
 import (
 	"encoding/json"
 	"net/http"
-
-	"github.com/mlhamel/accouchement/status"
 )
 
-func RenderStatus(w http.ResponseWriter, r *http.Request, s *status.Status) {
+func RenderStatus(w http.ResponseWriter, r *http.Request, s *StatusManager) {
 	s.Refresh()
 
 	renderTemplate(w, "templates/status.html", s.Serialize())
 }
 
-func ApiStatus(w http.ResponseWriter, r *http.Request, s *status.Status) {
+func ApiStatus(w http.ResponseWriter, r *http.Request, s *StatusManager) {
 	json.NewEncoder(w).Encode(s.Serialize())
 }
 
 // ToggleStatus respond to an http request and toggle the status of the status manager
-func ToggleStatus(w http.ResponseWriter, r *http.Request, s *status.Status) {
-	if s.Value() == status.No {
+func ToggleStatus(w http.ResponseWriter, r *http.Request, s *StatusManager) {
+	if s.Value() == No {
 		s.Enable()
 	} else {
 		s.Disable()
@@ -29,8 +27,8 @@ func ToggleStatus(w http.ResponseWriter, r *http.Request, s *status.Status) {
 }
 
 // ToggleStatusWithTwilio respond to an http request and toggle the status of the status manager
-func ToggleStatusWithTwilio(w http.ResponseWriter, r *http.Request, s *status.Status) {
-	if s.Value() == status.No {
+func ToggleStatusWithTwilio(w http.ResponseWriter, r *http.Request, s *StatusManager) {
+	if s.Value() == No {
 		s.Enable()
 	} else {
 		s.Disable()
@@ -50,7 +48,7 @@ func ToggleStatusWithTwilio(w http.ResponseWriter, r *http.Request, s *status.St
 }
 
 // RenderStatusWithTwilio respond to an http request marshal to twiml format
-func RenderStatusWithTwilio(w http.ResponseWriter, r *http.Request, s *status.Status) {
+func RenderStatusWithTwilio(w http.ResponseWriter, r *http.Request, s *StatusManager) {
 	t := NewTwiML(s)
 	x, err := t.Marshal()
 

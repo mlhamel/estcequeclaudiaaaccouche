@@ -5,10 +5,9 @@ import (
 	"net/http"
 
 	"github.com/gorilla/mux"
-	"github.com/mlhamel/accouchement/status"
 )
 
-func Serve(s *status.Status, port string) {
+func Serve(s *StatusManager, port string) {
 	router := mux.NewRouter()
 
 	router.HandleFunc("/", makeHandler(RenderStatus, s))
@@ -37,7 +36,7 @@ func Serve(s *status.Status, port string) {
 	}
 }
 
-func makeHandler(fn func(http.ResponseWriter, *http.Request, *status.Status), s *status.Status) http.HandlerFunc {
+func makeHandler(fn func(http.ResponseWriter, *http.Request, *StatusManager), s *StatusManager) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		log.Printf("%s %s %s", r.RemoteAddr, r.Method, r.URL)
 		fn(w, r, s)

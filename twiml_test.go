@@ -4,20 +4,19 @@ import (
 	"fmt"
 	"testing"
 
-	"github.com/mlhamel/accouchement/status"
 	"github.com/mlhamel/accouchement/store"
 )
 
 func TestNewTwiml(t *testing.T) {
 	dataStore, _ := store.NewStore(store.MINI, "", "")
 
-	s1 := status.NewStatus(dataStore, status.No)
+	s1 := NewStatusManager(dataStore, No)
 
 	twiml := NewTwiML(s1)
 	data := twiml.Data()
 	message := data.Say
 
-	if message.String != status.No {
+	if message.String != No {
 		t.Error("String from message should be No")
 	}
 
@@ -33,7 +32,7 @@ func TestNewTwiml(t *testing.T) {
 func TestMarshall(t *testing.T) {
 	dataStore, _ := store.NewStore(store.MINI, "", "")
 
-	s1 := status.NewStatus(dataStore, status.No)
+	s1 := NewStatusManager(dataStore, No)
 
 	twiml := NewTwiML(s1)
 	_, err := twiml.Marshal()

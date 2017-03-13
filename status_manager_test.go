@@ -1,11 +1,12 @@
-package status
+package main
 
 import (
-	"github.com/mlhamel/accouchement/store"
 	"testing"
+
+	"github.com/mlhamel/accouchement/store"
 )
 
-func TestNewStatus(t *testing.T) {
+func TestNewStatusManager(t *testing.T) {
 	t.Log("Creating new status")
 
 	dataStore, err := store.NewStore(store.MINI, "", "")
@@ -16,7 +17,7 @@ func TestNewStatus(t *testing.T) {
 		panic(err)
 	}
 
-	s1 := NewStatus(dataStore, No)
+	s1 := NewStatusManager(dataStore, No)
 
 	s1.Refresh()
 
@@ -25,12 +26,12 @@ func TestNewStatus(t *testing.T) {
 	}
 }
 
-func ToggleStatus(t *testing.T) {
+func ToggleStatusManager(t *testing.T) {
 	t.Log("Testing Toggle status")
 
 	dataStore, _ := store.NewStore(store.MINI, "", "")
 
-	s1 := NewStatus(dataStore, No)
+	s1 := NewStatusManager(dataStore, No)
 
 	s1.Toggle()
 
@@ -45,12 +46,12 @@ func ToggleStatus(t *testing.T) {
 	}
 }
 
-func DisableStatus(t *testing.T) {
+func DisableStatusManager(t *testing.T) {
 	t.Log("Testing Disable status")
 
 	dataStore, _ := store.NewStore(store.MINI, "", "")
 
-	s1 := NewStatus(dataStore, Yes)
+	s1 := NewStatusManager(dataStore, Yes)
 
 	s1.Disable()
 
@@ -65,12 +66,12 @@ func DisableStatus(t *testing.T) {
 	}
 }
 
-func EnableStatus(t *testing.T) {
+func EnableStatusManager(t *testing.T) {
 	t.Log("Testing Disable status")
 
 	dataStore, _ := store.NewStore(store.MINI, "", "")
 
-	s1 := NewStatus(dataStore, No)
+	s1 := NewStatusManager(dataStore, No)
 
 	s1.Enable()
 
