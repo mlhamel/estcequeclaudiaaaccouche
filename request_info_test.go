@@ -24,6 +24,16 @@ const raw string = `ToCountry=CA
 &From=%2B15145692911
 &ApiVersion=2010-04-01`
 
+func TestParseBadQuery(t *testing.T) {
+	t.Log("Parsing query string")
+
+	_, err := NewRequestInfo("")
+
+	if err != nil {
+		t.Error("Parsing empty query string should return an error")
+	}
+}
+
 func TestParseQuery(t *testing.T) {
 	t.Log("Parsing query string")
 
