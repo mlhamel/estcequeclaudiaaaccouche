@@ -47,7 +47,7 @@ func TestToggleStatus(t *testing.T) {
 	}
 
 	if manager.Value() != Yes {
-		t.Errorf("Toggling status should turn to yes, got %s", manager.Value())
+		t.Errorf("TogglingStatus did not turned status to yes, got %s", manager.Value())
 	}
 
 	w = sendRequest("POST", manager, ToggleStatus)
@@ -57,7 +57,7 @@ func TestToggleStatus(t *testing.T) {
 	}
 
 	if manager.Value() != No {
-		t.Errorf("Toggling status should turn to no, got %s", manager.Value())
+		t.Errorf("TogglingStatus did not turned status to no, got %s", manager.Value())
 	}
 }
 
@@ -71,7 +71,7 @@ func TestToggleStatusWithTwilio(t *testing.T) {
 	}
 
 	if manager.Value() != Yes {
-		t.Errorf("Toggling status should turn to yes, got %s", manager.Value())
+		t.Errorf("ToggleStatusWithTwilio did not turned status to yes, got %s", manager.Value())
 	}
 
 	w = sendRequest("POST", manager, ToggleStatusWithTwilio)
@@ -81,7 +81,7 @@ func TestToggleStatusWithTwilio(t *testing.T) {
 	}
 
 	if manager.Value() != No {
-		t.Errorf("Toggling status should turn to no, got %s", manager.Value())
+		t.Errorf("ToggleStatusWithTwilio didn not turned status to no, got %s", manager.Value())
 	}
 }
 
