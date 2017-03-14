@@ -93,3 +93,13 @@ func TestToggleStatusWithTwilio(t *testing.T) {
 		t.Errorf("Toggling status should turn to no, got %s", manager.Value())
 	}
 }
+
+func TestRenderStatusWithTwilio(t *testing.T) {
+	manager := buildStatusManager()
+
+	w := sendRequest("GET", manager, RenderStatusWithTwilio)
+
+	if w.Code != http.StatusOK {
+		t.Errorf("RenderStatusWithTwilio didn't return %v", http.StatusOK)
+	}
+}
