@@ -14,18 +14,18 @@ Usage:
   accouchement disable [--redis=<url>]
   accouchement enable [--redis=<url>]
   accouchement toggle [--redis=<url>]
-  accouchement serve [--port=<port>] [--redis=<url>] [--authorized-source=<source>]
+  accouchement serve [--port=<port>] [--redis=<url>] [--source=<source>]
   accouchement status [--redis=<url>]
 	accouchement [--port=<port>] [--redis=<url>]
   accouchement -h | --help
   accouchement --version
 
 Options:
-  --redis=<url>          				Change Redis configuration to [default: redis://@192.168.64.42:6379].
-  --port=<port>          				Port to serve [default: 4242].
-	--authorized-source=<source>  Authorized source of action [default: +15149999999].
-  -h --help          						Show this screen.
-  --version          						Show version.`
+  --redis=<url>          	Change Redis configuration to [default: redis://@192.168.64.42:6379].
+  --port=<port>          	Port to serve [default: 4242].
+	--source=<source>  			Authorized source of action [default: +15149999999].
+  -h --help          			Show this screen.
+  --version          			Show version.`
 
 	arguments, _ := docopt.Parse(usage, nil, true, "Accouchement", false)
 
