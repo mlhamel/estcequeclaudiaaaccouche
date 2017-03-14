@@ -3,14 +3,10 @@ package main
 import (
 	"fmt"
 	"testing"
-
-	"github.com/mlhamel/accouchement/store"
 )
 
 func TestNewTwiml(t *testing.T) {
-	dataStore, _ := store.NewStore(store.MINI, "", "")
-
-	s1 := NewStatusManager(dataStore, No)
+	s1 := buildStatusManager()
 
 	twiml := NewTwiML(s1)
 	data := twiml.Data()
@@ -30,9 +26,7 @@ func TestNewTwiml(t *testing.T) {
 }
 
 func TestMarshall(t *testing.T) {
-	dataStore, _ := store.NewStore(store.MINI, "", "")
-
-	s1 := NewStatusManager(dataStore, No)
+	s1 := buildStatusManager()
 
 	twiml := NewTwiML(s1)
 	_, err := twiml.Marshal()

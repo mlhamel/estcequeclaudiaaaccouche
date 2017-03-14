@@ -3,6 +3,8 @@ package main
 import (
 	"html/template"
 	"net/http"
+
+	"github.com/mlhamel/accouchement/store"
 )
 
 func GetListenAddress(port string) (string, error) {
@@ -16,4 +18,11 @@ func renderTemplate(w http.ResponseWriter, tmpl string, p interface{}) {
 	} else {
 		t.Execute(w, p)
 	}
+}
+
+func buildStatusManager() *StatusManager {
+	dataStore, _ := store.NewStore(store.MINI, "", "")
+	statusManager := NewStatusManager(dataStore, No, "")
+
+	return statusManager
 }

@@ -17,7 +17,7 @@ func TestNewStatusManager(t *testing.T) {
 		panic(err)
 	}
 
-	s1 := NewStatusManager(dataStore, No)
+	s1 := NewStatusManager(dataStore, No, "")
 
 	s1.Refresh()
 
@@ -31,7 +31,7 @@ func ToggleStatusManager(t *testing.T) {
 
 	dataStore, _ := store.NewStore(store.MINI, "", "")
 
-	s1 := NewStatusManager(dataStore, No)
+	s1 := NewStatusManager(dataStore, No, "")
 
 	s1.Toggle()
 
@@ -51,7 +51,7 @@ func DisableStatusManager(t *testing.T) {
 
 	dataStore, _ := store.NewStore(store.MINI, "", "")
 
-	s1 := NewStatusManager(dataStore, Yes)
+	s1 := NewStatusManager(dataStore, Yes, "")
 
 	s1.Disable()
 
@@ -71,7 +71,7 @@ func EnableStatusManager(t *testing.T) {
 
 	dataStore, _ := store.NewStore(store.MINI, "", "")
 
-	s1 := NewStatusManager(dataStore, No)
+	s1 := NewStatusManager(dataStore, No, "")
 
 	s1.Enable()
 

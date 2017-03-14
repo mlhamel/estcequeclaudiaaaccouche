@@ -21,7 +21,7 @@ const raw string = `ToCountry=CA
 &NumSegments=1
 &MessageSid=SM0cee2f5a06c9726753c7231249572309
 &AccountSid=ACa0e4c544ea66c6ff500da67e39730dfb
-&From=%2B15145692911
+&From=%2B15149999999
 &ApiVersion=2010-04-01`
 
 func TestParseBadQuery(t *testing.T) {
@@ -89,5 +89,9 @@ func TestParseQuery(t *testing.T) {
 
 	if query.NumSegments != "1" {
 		t.Error("NumSegments from query string was not parsed properly")
+	}
+
+	if query.From != "+15149999999" {
+		t.Error("From from query string was not parsed properly")
 	}
 }

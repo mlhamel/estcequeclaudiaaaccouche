@@ -11,16 +11,18 @@ const Yes string = "oui"
 const No string = "non"
 
 type StatusManager struct {
-	currentValue string
-	dataStore    store.Store
-	mutex        *sync.Mutex
+	currentValue     string
+	authorizedSource string
+	dataStore        store.Store
+	mutex            *sync.Mutex
 }
 
-func NewStatusManager(dataStore store.Store, value string) *StatusManager {
+func NewStatusManager(dataStore store.Store, value string, source string) *StatusManager {
 	s := StatusManager{
-		dataStore:    dataStore,
-		currentValue: value,
-		mutex:        &sync.Mutex{},
+		dataStore:        dataStore,
+		currentValue:     value,
+		authorizedSource: source,
+		mutex:            &sync.Mutex{},
 	}
 
 	return &s

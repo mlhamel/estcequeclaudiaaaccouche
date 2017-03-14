@@ -4,16 +4,7 @@ import (
 	"net/http"
 	"net/http/httptest"
 	"testing"
-
-	"github.com/mlhamel/accouchement/store"
 )
-
-func buildStatusManager() *StatusManager {
-	dataStore, _ := store.NewStore(store.MINI, "", "")
-	statusManager := NewStatusManager(dataStore, No)
-
-	return statusManager
-}
 
 func sendRequest(action string, statusManager *StatusManager, fn func(http.ResponseWriter, *http.Request, *StatusManager)) *httptest.ResponseRecorder {
 	req, _ := http.NewRequest(action, "", nil)
