@@ -2,6 +2,7 @@ package main
 
 import (
 	"encoding/json"
+	"io/ioutil"
 	"net/http"
 )
 
@@ -26,6 +27,32 @@ func ToggleStatus(w http.ResponseWriter, r *http.Request, s *StatusManager) {
 
 // ToggleStatusWithTwilio respond to an http request and toggle the status of the status manager
 func ToggleStatusWithTwilio(w http.ResponseWriter, r *http.Request, s *StatusManager) {
+	body, err := ioutil.ReadAll(r.Body)
+
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+
+	query, err := NewRequestInfo(string(body))
+
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+
+	authorization := s.GetAuthorization(query.From)
+
+	if !authorization {
+		http.Error(w, err.Error(), http.StatusForbidden)
+		return
+	}
+
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+
 	s.Toggle()
 
 	t := NewTwiML(s)

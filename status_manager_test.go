@@ -67,7 +67,7 @@ func DisableStatusManager(t *testing.T) {
 }
 
 func EnableStatusManager(t *testing.T) {
-	t.Log("Testing Disable status")
+	t.Log("Testing Enable status")
 
 	dataStore, _ := store.NewStore(store.MINI, "", "")
 
@@ -83,5 +83,25 @@ func EnableStatusManager(t *testing.T) {
 
 	if s1.Value() != Yes {
 		t.Error("Enabling from yes should always be yes")
+	}
+}
+
+func TestGetAuthorization(t *testing.T) {
+	t.Log("Testing GetAuthorization")
+
+	dataStore, _ := store.NewStore(store.MINI, "", "")
+
+	s1 := NewStatusManager(dataStore, No, "+15149999999")
+
+	authorized := s1.GetAuthorization("+15149999999")
+
+	if !authorized {
+		t.Error("`+15149999999` is wrongly not authorized")
+	}
+
+	authorized = s1.GetAuthorization("+15149999912")
+
+	if authorized {
+		t.Error("`+15149999912` could not be authorized")
 	}
 }

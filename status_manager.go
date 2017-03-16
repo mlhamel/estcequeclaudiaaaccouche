@@ -74,6 +74,14 @@ func (s *StatusManager) Disable() {
 	s.currentValue = No
 }
 
+func (s *StatusManager) GetAuthorization(source string) bool {
+	if s.authorizedSource == "" {
+		return true
+	} else {
+		return source == s.authorizedSource
+	}
+}
+
 func (s *StatusManager) Serialize() map[string]string {
 	return map[string]string{"Status": s.currentValue}
 }

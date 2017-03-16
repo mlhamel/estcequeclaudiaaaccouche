@@ -7,6 +7,8 @@ import (
 	"github.com/gorilla/mux"
 )
 
+type ControllerHandler func(http.ResponseWriter, *http.Request, *StatusManager)
+
 func Serve(s *StatusManager, port string) {
 	router := mux.NewRouter()
 
@@ -36,7 +38,7 @@ func Serve(s *StatusManager, port string) {
 	}
 }
 
-func NewHandler(fn func(http.ResponseWriter, *http.Request, *StatusManager), s *StatusManager) http.HandlerFunc {
+func NewHandler(fn ControllerHandler, s *StatusManager) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		log.Printf("%s %s %s", r.RemoteAddr, r.Method, r.URL)
 		fn(w, r, s)

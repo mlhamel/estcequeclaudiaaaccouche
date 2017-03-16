@@ -25,12 +25,30 @@ const raw string = `ToCountry=CA
 &ApiVersion=2010-04-01`
 
 func TestParseBadQuery(t *testing.T) {
-	t.Log("Parsing query string")
+	t.Log("Parsing bad query string")
 
 	_, err := NewRequestInfo("")
 
 	if err != nil {
 		t.Error("Parsing empty query string should return an error")
+	}
+}
+
+func TestParsePartialQuery(t *testing.T) {
+	t.Log("Parsing partial query string")
+
+	query, err := NewRequestInfo("From=%2B15149999999&body=test")
+
+	if err != nil {
+		t.Errorf("Parsing partial query string should return an error: %s", err)
+	}
+
+	if query.Body != "test" {
+		t.Error("Body from query string was not parsed properly")
+	}
+
+	if query.From != "+15149999999" {
+		t.Error("From from query string was not parsed properly")
 	}
 }
 
