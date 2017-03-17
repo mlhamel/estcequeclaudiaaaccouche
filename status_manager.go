@@ -17,6 +17,8 @@ type StatusManager struct {
 	mutex            *sync.Mutex
 }
 
+type SerializedStatus map[string]string
+
 func NewStatusManager(dataStore store.Store, value string, source string) *StatusManager {
 	s := StatusManager{
 		dataStore:        dataStore,
@@ -82,8 +84,8 @@ func (s *StatusManager) GetAuthorization(source string) bool {
 	}
 }
 
-func (s *StatusManager) Serialize() map[string]string {
-	return map[string]string{"Status": s.currentValue}
+func (s *StatusManager) Serialize() SerializedStatus {
+	return SerializedStatus{"Status": s.currentValue}
 }
 
 func (s *StatusManager) Value() string {
