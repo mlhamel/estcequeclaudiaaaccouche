@@ -6,7 +6,7 @@ import (
 )
 
 func TestNewTwiml(t *testing.T) {
-	s1 := buildStatusManager()
+	s1 := makeStatusManager()
 
 	twiml := NewTwiML(s1)
 	data := twiml.Data()
@@ -26,7 +26,7 @@ func TestNewTwiml(t *testing.T) {
 }
 
 func TestMarshall(t *testing.T) {
-	s1 := buildStatusManager()
+	s1 := makeStatusManager()
 
 	twiml := NewTwiML(s1)
 	_, err := twiml.Marshal()

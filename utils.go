@@ -20,7 +20,7 @@ func renderTemplate(w http.ResponseWriter, tmpl string, p interface{}) {
 	}
 }
 
-func buildStatusManager() *StatusManager {
+func makeStatusManager() *StatusManager {
 	dataStore, _ := store.NewStore(store.MINI, "", "")
 	statusManager := NewStatusManager(dataStore, No, "")
 

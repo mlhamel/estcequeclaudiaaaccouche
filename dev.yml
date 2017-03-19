@@ -9,6 +9,7 @@ commands:
   test: make test
   server: bin/accouchement serve --redis=redis://@192.168.64.42:6379 --port=4242
   grok: ngrok http 4242
+  notify: bin/accouchement notify --redis=redis://@192.168.64.42:6379 --port=4242
 railgun:
   image: dev:railgun-common-services-0.2.x
   services:

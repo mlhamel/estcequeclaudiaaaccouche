@@ -19,7 +19,7 @@ func sendRequest(action string, statusManager *StatusManager, fn ControllerHandl
 }
 
 func TestRenderStatus(t *testing.T) {
-	manager := buildStatusManager()
+	manager := makeStatusManager()
 
 	w := sendRequest("GET", manager, RenderStatus, "")
 
@@ -29,7 +29,7 @@ func TestRenderStatus(t *testing.T) {
 }
 
 func TestAPIStatus(t *testing.T) {
-	manager := buildStatusManager()
+	manager := makeStatusManager()
 
 	w := sendRequest("GET", manager, APIStatus, "")
 
@@ -39,7 +39,7 @@ func TestAPIStatus(t *testing.T) {
 }
 
 func TestToggleStatus(t *testing.T) {
-	manager := buildStatusManager()
+	manager := makeStatusManager()
 
 	w := sendRequest("POST", manager, ToggleStatus, "")
 
@@ -63,7 +63,7 @@ func TestToggleStatus(t *testing.T) {
 }
 
 func TestToggleStatusWithTwilio(t *testing.T) {
-	manager := buildStatusManager()
+	manager := makeStatusManager()
 
 	w := sendRequest("POST", manager, ToggleStatusWithTwilio, "From=%2B15149999999&body=test")
 
@@ -87,7 +87,7 @@ func TestToggleStatusWithTwilio(t *testing.T) {
 }
 
 func TestRenderStatusWithTwilio(t *testing.T) {
-	manager := buildStatusManager()
+	manager := makeStatusManager()
 
 	w := sendRequest("GET", manager, RenderStatusWithTwilio, "")
 

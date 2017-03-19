@@ -55,9 +55,7 @@ func ToggleStatusWithTwilio(w http.ResponseWriter, r *http.Request, s *StatusMan
 
 	s.Toggle()
 
-	t := NewTwiML(s)
-
-	x, err := t.Marshal()
+	x, err := NewTwiML(s).Marshal()
 
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
