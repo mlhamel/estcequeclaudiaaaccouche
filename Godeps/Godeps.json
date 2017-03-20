@@ -30,6 +30,10 @@
 			"Rev": "64644a2fced21dbfa12f7ca184bdcedeb2513dd4"
 		},
 		{
+			"ImportPath": "github.com/sfreiberg/gotwilio",
+			"Rev": "58125ef28e4b5d7ab5328593099ae8cac5fcf6a2"
+		},
+		{
 			"ImportPath": "gopkg.in/redis.v5",
 			"Comment": "v5.2.4",
 			"Rev": "2fe9c5cc0a8da9faeba3a45511a4ece8f7e37dc2"
