@@ -7,6 +7,13 @@ import (
 	"github.com/mlhamel/accouchement/store"
 )
 
+func ParseArgument(arg interface{}) string {
+	if arg != nil {
+		return arg.(string)
+	}
+	return ""
+}
+
 func main() {
 	usage := `Est-ce que Claudia a accouché?.
 
@@ -34,12 +41,15 @@ Options:
 
 	arguments, _ := docopt.Parse(usage, nil, true, "Accouchement", false)
 
-	redisURL := arguments["--redis"].(string)
-	port := arguments["--port"].(string)
-	source := arguments["--source"].(string)
+	redisURL := ParseArgument(arguments["--redis"])
+	port := ParseArgument(arguments["--port"])
+	source := ParseArgument(arguments["--source"])
 
-	sid := arguments["--sid"].(string)
-	token := arguments["--token"].(string)
+	sid := ParseArgument(arguments["--sid"])
+	token := ParseArgument(arguments["--token"])
+
+	to := ParseArgument(arguments["--to"])
+	from := ParseArgument(arguments["--from"])
 
 	dataStore, _ := store.NewStore(store.REDIS, redisURL, "")
 	statusManager := NewStatusManager(dataStore, No, source)
@@ -62,8 +72,6 @@ Options:
 	case arguments["status"]:
 		fmt.Println(statusManager.Value())
 	case arguments["notify"]:
-		to := arguments["--to"].(string)
-		from := arguments["--from"].(string)
 		notifier.NotifyInline(from, to)
 	default:
 		Serve(statusManager, port)
