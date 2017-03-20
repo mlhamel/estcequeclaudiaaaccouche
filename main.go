@@ -41,9 +41,6 @@ Options:
 	sid := arguments["--sid"].(string)
 	token := arguments["--token"].(string)
 
-	to := arguments["--to"].(string)
-	from := arguments["--from"].(string)
-
 	dataStore, _ := store.NewStore(store.REDIS, redisURL, "")
 	statusManager := NewStatusManager(dataStore, No, source)
 	notifier := NewTwilioNotifier(sid, token, statusManager)
@@ -65,6 +62,8 @@ Options:
 	case arguments["status"]:
 		fmt.Println(statusManager.Value())
 	case arguments["notify"]:
+		to := arguments["--to"].(string)
+		from := arguments["--from"].(string)
 		notifier.NotifyInline(from, to)
 	default:
 		Serve(statusManager, port)
