@@ -30,3 +30,5 @@ accouchement --version
 -h --help               Show this screen.
 --version               Show version.
 ```
+
+[![Build Status](https://travis-ci.org/mlhamel/estcequeclaudiaaaccouche.svg?branch=master)](https://travis-ci.org/mlhamel/estcequeclaudiaaaccouche)
