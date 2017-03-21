@@ -1,5 +1,11 @@
 <html>
   <head>
+    <link rel="stylesheet"
+          href="https://unpkg.com/purecss@0.6.2/build/pure-min.css"
+          integrity="sha384-UQiGfs9ICog+LwheBSRCt1o5cbyKIHbwjWscjemyBMT9YCUMZffs6UqUTd0hObXD"
+          crossorigin="anonymous">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Est-ce que Claudia a accouché?</title>
     <style type="text/css">
      body {
@@ -14,6 +20,15 @@
     <meta http-equiv="refresh" content="60">
   </head>
   <body>
-    <h1>{{ .Status }}</h1>
+    <div class="pure-g">
+      <div class="pure-u-1"><h1>{{ .Status }}</h1></div>
+    </div>
+    <div class="pure-g">
+      <div class="pure-u-1">
+        {{ if .Image }}
+          <img src="{{ .Image }}" width="200px" />
+        {{ end }}
+      </div>
+    </div>
   </body>
 </html>

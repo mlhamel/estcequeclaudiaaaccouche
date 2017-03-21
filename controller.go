@@ -48,12 +48,8 @@ func ToggleStatusWithTwilio(w http.ResponseWriter, r *http.Request, s *StatusMan
 		return
 	}
 
-	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
-		return
-	}
-
 	s.Toggle()
+	s.SetImage(query.MediaUrl0)
 
 	x, err := NewTwiML(s).Marshal()
 

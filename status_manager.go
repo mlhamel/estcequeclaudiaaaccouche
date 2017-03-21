@@ -7,11 +7,13 @@ import (
 )
 
 const key string = "status"
+const urlKey string = "statusImage"
 const Yes string = "oui"
 const No string = "non"
 
 type StatusManager struct {
 	currentValue     string
+	imageURL         string
 	authorizedSource string
 	dataStore        store.Store
 	mutex            *sync.Mutex
@@ -23,6 +25,7 @@ func NewStatusManager(dataStore store.Store, value string, source string) *Statu
 	s := StatusManager{
 		dataStore:        dataStore,
 		currentValue:     value,
+		imageURL:         "",
 		authorizedSource: source,
 		mutex:            &sync.Mutex{},
 	}
@@ -76,6 +79,16 @@ func (s *StatusManager) Disable() {
 	s.currentValue = No
 }
 
+func (s *StatusManager) SetImage(url string) {
+	err := s.set(urlKey, No)
+
+	if err != nil {
+		panic(err)
+	}
+
+	s.imageURL = url
+}
+
 func (s *StatusManager) GetAuthorization(source string) bool {
 	if s.authorizedSource == "" {
 		return true
@@ -85,7 +98,7 @@ func (s *StatusManager) GetAuthorization(source string) bool {
 }
 
 func (s *StatusManager) Serialize() SerializedStatus {
-	return SerializedStatus{"Status": s.currentValue}
+	return SerializedStatus{"Status": s.currentValue, "Image": s.imageURL}
 }
 
 func (s *StatusManager) Value() string {

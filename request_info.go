@@ -29,6 +29,7 @@ type RequestInfo struct {
 	AccountSid    string
 	From          string
 	ApiVersion    string
+	MediaUrl0     string
 }
 
 // NewRequestInfo parse raw requery string and turns it to a RequestInfo
